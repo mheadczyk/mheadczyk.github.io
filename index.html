@@ -1,379 +1,476 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OCHRONA WIEDZY INTELEKTUALNEJ czy cos</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h2 {
-            color: #333;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        .correct {
-            background-color: #8FED8F; /* Kolor tła dla poprawnych odpowiedzi */
-        }
-        .incorrect {
-            background-color: #FF8F8F; /* Kolor tła dla błędnych odpowiedzi */
-        }
-    </style>
+
+	<link rel="icon" href="https://mech.pk.edu.pl/wp-content/uploads/2020/09/WM_RGB-120x120.jpg" sizes="32x32">
+	<link rel="icon" href="https://mech.pk.edu.pl/wp-content/uploads/2020/09/WM_RGB.jpg" sizes="192x192">
+	<link rel="apple-touch-icon" href="https://mech.pk.edu.pl/wp-content/uploads/2020/09/WM_RGB.jpg">
+	
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<title></title>
+	<meta name="generator" content="https://conversiontools.io" />
+	<meta name="author" content="Maciej Glowczyk"/>
+	<meta name="created" content="2022-02-23T11:15:12"/>
+	<meta name="changedby" content="Maciej Glowczyk"/>
+	<meta name="changed" content="2023-11-27T15:46:53"/>
+	<meta name="AppVersion" content="16.0300"/>
+	<meta name="DocSecurity" content="0"/>
+	<meta name="HyperlinksChanged" content="false"/>
+	<meta name="LinksUpToDate" content="false"/>
+	<meta name="ScaleCrop" content="false"/>
+	<meta name="ShareDoc" content="false"/>
+	
+	<style type="text/css">
+		body,div,table,thead,tbody,tfoot,tr,th,td,p { font-family:"Calibri"; font-size:x-small }
+		a.comment-indicator:hover + comment { background:#ffd; position:absolute; display:block; border:1px solid black; padding:0.5em;  } 
+		a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em;  } 
+		comment { display:none;  } 
+	</style>
+	
 </head>
+
 <body>
-
-<h2>Quiz</h2>
-
-<div id="questionContainer"></div>
-<div id="feedback"></div>
-<script>
-    const questions = [
-        {
-            question: "Czynem nieuczciwej konkurencji jest:",
-            answers: [
-                { id: "a", text: "Naśladownictwo produktów, jeżeli może wprowadzić klientów w błąd co do tożsamości producenta", correct: true },
-                { id: "b", text: "Inspirowanie się czyimś utworem", correct: false },
-                { id: "c", text: "Nakłanianie do niewykonania umowy", correct: false },
-                { id: "d", text: "Naruszenie tajemnicy przedsiębiorstwa", correct: true },
-                { id: "e", text: "Wprowadzające w błąd oznaczenia towarów", correct: true }
-            ]
-        },
-    {
-        question: "Wzorem przemysłowym jest np.",
-        answers: [
-            { id: "a", text: "Receptura kremu", correct: false },
-            { id: "b", text: "Butelka", correct: true },
-            { id: "c", text: "Krzesło z regulowanym oparciem", correct: true},
-            { id: "d", text: "Gra komputerowa", correct: false },
-            { id: "e", text: "But rehabilitacyjny", correct: false }
-        ]
-    },
-    {
-        question: "Które z poniższych cech odnoszą się do autorskich praw majątkowych?",
-        answers: [
-            { id: "a", text: "dotyczą osobistej relacji twórcy z utworem", correct: false },
-            { id: "b", text: "są nieograniczone w czasie", correct: false },
-            { id: "c", text: "są niezbywalne", correct: false },
-            { id: "d", text: "dotyczą dysponowania utworem i zarabiania na jego rozpowszechnianiu lub na innej formie wykorzystania", correct: true },
-            { id: "e", text: "dają prawo kontroli nad korzystaniem z utworu", correct: true }
-        ]
-    },
-    {
-        question: "Utworami nie są:",
-        answers: [
-            { id: "a", text: "opublikowane opisy patentowe", correct: true },
-            { id: "b", text: "programy komputerowe", correct: false},
-            { id: "c", text: "akty normatywne", correct: true },
-            { id: "d", text: "wiersze", correct: false },
-            { id: "e", text: "scenariusze filmowe", correct: false }
-        ]
-    },
-    {
-        question: "Oznaczenia słowne, odnoszące się bezpośrednio lub pośrednio do nazwy miejsca, miejscowości regionu lub kraju, które identyfikują towar jako pochodzący z tego terenu to:",
-        answers: [
-            { id: "a", text: "oznaczenie geograficzne", correct: true },
-            { id: "b", text: "znak towarowy", correct: false },
-            { id: "c", text: "wzór przemysłowy", correct: false },
-            { id: "d", text: "wzór użytkowy", correct: false },
-            { id: "e", text: "znak regionalny", correct: false }
-        ]
-    },
-    {
-        question: "Do rozwiązań technicznych należą:",
-        answers: [
-            { id: "a", text: "topografia układu scalonego", correct: true},
-            { id: "b", text: "wzór przemysłowy", correct: false },
-            { id: "c", text: "utwór", correct: false },
-            { id: "d", text: "wynalazek", correct: true },
-            { id: "e", text: "wzór użytkowy", correct: true }
-        ]
-    },
-    {
-        question: "Do cech wynalazku należą:",
-        answers: [
-            { id: "a", text: "posiada poziom wynalazczy", correct: true },
-            { id: "b", text: "nadaje się do przemysłowego stosowania", correct: true },
-            { id: "c", text: "to rozwiązanie techniczne", correct: true },
-            { id: "d", text: "rozwiązanie nowe w skali światowej", correct: true },
-            { id: "e", text: "żadne z powyższych", correct: false }
-        ]
-    },
-    {
-        question: "Zaznacz prawdziwe stwierdzenia odnoszące się do procedury krajowej pozyskiwania ochrony prawnej przed UPRP",
-        answers: [
-            { id: "a", text: "wnioskodawca musi być reprezentowany przez rzecznika patentowego", correct: false },
-            { id: "b", text: "zgłoszenie wnioskodawcy przechodzi weryfikacja formalna i merytoryczną", correct: true },
-            { id: "c", text: "WUP musi opublikować informację o zgłoszeniu patentowym nie później niż rok od zgłoszenia", correct: false },
-            { id: "d", text: "podmiot wnioskujący stara się o prawa wyłączne do zgłoszonego rozwiązania", correct: true },
-            { id: "e", text: "przy zgłoszeniu rozwiązania do ochrony nie wnoszona jest opłata", correct: false }
-        ]
-    },
-    {
-        question: "Nowa i posiadająca indywidualny charakter postać wytworu lub jego części nadana mu w szczególności przez cechy linii, konturów, kształtów, kolorystykę, strukturę lub materiał wytworu to:",
-        answers: [
-            { id: "a", text: "znak towarowy", correct: false },
-            { id: "b", text: "wzór przemysłowy", correct: true },
-            { id: "c", text: "oznaczenie geograficzne", correct: false },
-            { id: "d", text: "patent", correct: false },
-            { id: "e", text: "wzór użytkowy", correct: false }
-        ]
-    },
-{
-    question: "Jakie akty prawne określają w Polsce prawo do ochrony prawnej m.in. wynalazków, wzorów użytkowych, wzorów przemysłowych?",
-    answers: [
-        { id: "a", text: "Ustawa zasadnicza", correct: false },
-        { id: "b", text: "nie ma takich dokumentów", correct: false },
-        { id: "c", text: "Ustawa z dnia 4 lutego 1994 r. o prawie autorskim i prawach pokrewnych", correct: false },
-        { id: "d", text: "Ustawa z dnia 30 czerwca 2000r. o prawie autorskim i prawach pokrewnych", correct: false },
-        { id: "e", text: "Ustawa z dnia 20 czerwca 2000r. Prawo własności przemysłowej", correct: true }
-    ]
-},
-    {
-        question: "Do baz patentowych należą:",
-        answers: [
-            { id: "a", text: "Google Patents", correct: true },
-            { id: "b", text: "żadne z pozyższych", correct: false },
-            { id: "c", text: "Espacenet", correct: true },
-            { id: "d", text: "eSearch plus", correct: false },
-            { id: "e", text: "DesignView", correct: false }
-        ]
-    },
-    {
-        question: "Dzieła Tadeusza Boya-Żeleńskiego, który zmarł 4 lipca 1941 roku do domeny publicznej przekazane zostaną dopiero:",
-        answers: [
-            { id: "a", text: "1 stycznia 2012 roku", correct: true },
-            { id: "b", text: "1 stycznia 1992 roku", correct: false },
-            { id: "c", text: "5 lipca 1991 roku", correct: false },
-            { id: "d", text: "5 lipca 2011 roku", correct: false },
-            { id: "e", text: "2 stycznia 2012 roku", correct: false }
-        ]
-    },
-    {
-        question: "Do know-how zaliczyć można:",
-        answers: [
-            { id: "a", text: "umiejętności i doświadczenie", correct: true },
-            { id: "b", text: "wzory użytkowe", correct: false },
-            { id: "c", text: "żadne z powyższych", correct: false },
-            { id: "d", text: "wynalazki", correct: false },
-            { id: "e", text: "nie opatentowane wynalazki", correct: true }
-        ]
-    },
-    {
-        question: "Wśród licencji wyróżniamy licencje:",
-        answers: [
-            { id: "a", text: "ograniczone", correct: true },
-            { id: "b", text: "wyłączne", correct: true },
-            { id: "c", text: "zamknięte", correct: false },
-            { id: "d", text: "pełne", correct: true },
-            { id: "e", text: "otwarte", correct: true }
-        ]
-    },
-    {
-        question: "Nie uznaje się za wynalazki w szczególności:",
-        answers: [
-            { id: "a", text: "wytworów o charakterze jedynie estetycznym", correct: true },
-            { id: "b", text: "gier", correct: true },
-            { id: "c", text: "żadna z odpowiedzi nie jest prawidłowa", correct: false },
-            { id: "d", text: "teorii naukowych i metod matematycznych", correct: true },
-            { id: "e", text: "odkryć", correct: true }
-        ]
-    },
-    {
-        question: "Nowe i nadające się do przemysłowego zastosowania rozwiązanie o charakterze technicznym, dotyczące kształtu lub budowy przedmiotu o trwałej postaci albo przedmiotu składającego się ze związanych ze sobą funkcjonalnie części o trwałej postaci to",
-        answers: [
-            { id: "a", text: "wynalazek", correct: false },
-            { id: "b", text: "wzór przemysłowy", correct: false },
-            { id: "c", text: "wzór użytkowy", correct: true },
-            { id: "d", text: "żadne z powyższych", correct: false },
-            { id: "e", text: "oznaczenie geograficzne", correct: false }
-        ]
-    },
-    {
-        question: "Oznaczenie przedstawione w sposób graficzny lub takie, które da się w sposób graficzny wyrazić jeżeli oznaczenie takie nadaje się do odróżniania w obrocie towarów jednego przedsiębiorstwa od tego samego rodzaju towarów innych przedsiębiorstw to",
-        answers: [
-            { id: "a", text: "znak firmowy", correct: false },
-            { id: "b", text: "topografia układu scalonego", correct: false },
-            { id: "c", text: "oznaczenie geograficzne", correct: false },
-            { id: "d", text: "znak towarowy", correct: true },
-            { id: "e", text: "żadne z powyższych", correct: false }
-        ]
-    },
-    {
-        question: "Stan prawny konkretnego przedmiotu, w którym spełnia on wymogi określonego ustawodawstwa danego państwa z dziedziny wynalazczości to",
-        answers: [
-            { id: "a", text: "zdolność patentowa", correct: true },
-            { id: "b", text: "czystość patentowa", correct: false },
-            { id: "c", text: "żadne z powyższych", correct: false },
-            { id: "d", text: "stan techniki", correct: false },
-            { id: "e", text: "zdolność ochronna", correct: false }
-        ]
-    },
-    {
-        question: "Do przedmiotów własności przemysłowej zaliczyć można",
-        answers: [
-            { id: "a", text: "programy komputerowe", correct: false },
-            { id: "b", text: "domeny internetowe", correct: false },
-            { id: "c", text: "topografie układów scalonych", correct: true },
-            { id: "d", text: "bazy danych", correct: false },
-            { id: "e", text: "znaki towarowe", correct: true }
-        ]
-    },
-    {
-        question: "Które stwierdzenia odnoszą się do umowy licencyjnej",
-        answers: [
-            { id: "a", text: "można udzielić wielu licencji na danym polu eksploatacji, o ile mają one charakter wyłączny", correct: false },
-            { id: "b", text: "druga strona umowy (biorca licencji) jest jedynie upoważniona do korzystania z praw", correct: true },
-            { id: "c", text: "przenosi określone prawa majątkowe do utworu (na określonym polu eksploatacji) – zbywca traci te prawo", correct: false },
-            { id: "d", text: "upoważnia do korzystania z praw na określonym polu eksploatacji – licencjodawca zachowuje te prawa", correct: true },
-            { id: "e", text: "żadne", correct: false }
-        ]
-    },
-    {
-        question: "Rodzaje procedur uzyskiwania ochrony w trybie rejestracji:",
-        answers: [
-            { id: "a", text: "żadne", correct: false },
-            { id: "b", text: "międzynarodowe", correct: true },
-            { id: "c", text: "regionalne", correct: true },
-            { id: "d", text: "krajowe", correct: true },
-            { id: "e", text: "składane", correct: false }
-        ]
-    },
-    {
-        question: "Które z powyższych stwierdzeń dot. utworu nie jest prawdziwe",
-        answers: [
-            { id: "a", text: "nie jest chroniony od chwili, w której zostanie w jakiejkolwiek postaci ustalony", correct: true},
-            { id: "b", text: "utworem nie jest artykuł naukowy", correct: true},
-            { id: "c", text: "dzielimy je na utwory zależne i pierwotne", correct: false },
-            { id: "d", text: "to każdy przejaw działalności twórczej", correct: false },
-            { id: "e", text: "cechują się indywidualnym charakterem", correct: false }
-        ]
-    },
-    {
-        question: "Do zadań rzeczników patentowych nie należy:",
-        answers: [
-            { id: "a", text: "prowadzenie poszukiwań stanu techniki", correct: false },
-            { id: "b", text: "walka z nieuczciwą konkurencją", correct: true },
-            { id: "c", text: "badanie przedmiotów podlegających ochronie własności przemysłowej", correct: true },
-            { id: "d", text: "sporządzanie opisów patentowych", correct: false },
-            { id: "e", text: "reprezentowanie UPRP przez WIPO", correct: true }
-        ]
-    },
-    {
-        question: "Po podpisaniu umowy o przeniesienie praw:",
-        answers: [
-            { id: "a", text: "prawo autorskie osobiste do utworu przechodzą na nabywcę", correct: false },
-            { id: "b", text: "jedyną osobą uprawnioną do korzystania z utworu staje się nabywca", correct: true },
-            { id: "c", text: "twórca nadal może korzystać z praw osobistych", correct: true },
-            { id: "d", text: "twórca nadal może korzystać z praw majątkowych", correct: false },
-            { id: "e", text: "jedyną osobą uprawnioną do korzystania z utworu staje się twórca", correct: false }
-        ]
-    },
-    {
-        question: "Prawa ochronne dotyczą:",
-        answers: [
-            { id: "a", text: "znaków towarowych", correct: true },
-            { id: "b", text: "wzorów użytkowych", correct: true },
-            { id: "c", text: "utworów", correct: false },
-            { id: "d", text: "wzorów przemysłowych", correct: false },
-            { id: "e", text: "oznaczeń geograficznych", correct: false }
-        ]
-    }
-        // Dodaj resztę pytań z odpowiedziami
-        // ...
-    ];
-
-    let currentQuestionIndex = 0;
-
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
-    function loadQuestion() {
-        const questionContainer = document.getElementById('questionContainer');
-        const currentQuestion = questions[currentQuestionIndex];
-
-        // Tasujemy odpowiedzi
-        shuffleArray(currentQuestion.answers);
-
-        questionContainer.innerHTML = `
-            <p>${currentQuestion.question}</p>
-            <ul>
-                ${currentQuestion.answers.map(answer => `<li><label><input type="checkbox" name="answers" value="${answer.id}"> ${answer.text}</label></li>`).join('')}
-            </ul>
-            <button type="button" onclick="checkAnswers()">Sprawdź</button>
-            <button type="button" onclick="nextQuestion()">Dalej</button>
-        `;
-    }
-
-function checkAnswers() {
-    const selectedAnswers = document.querySelectorAll('input[name="answers"]:checked');
-    const correctAnswers = questions[currentQuestionIndex].answers.filter(answer => answer.correct);
-
-    if (selectedAnswers.length !== correctAnswers.length) {
-        document.getElementById('feedback').textContent = 'Źle';
-        selectedAnswers.forEach(answer => answer.parentElement.classList.add('incorrect'));
-        return;
-    }
-
-    let isAnyIncorrect = false;
-
-    selectedAnswers.forEach(answer => {
-        const isCorrect = questions[currentQuestionIndex].answers.find(a => a.id === answer.value).correct;
-
-        if (!isCorrect) {
-            isAnyIncorrect = true;
-            answer.parentElement.classList.add('incorrect');
-        } else {
-            answer.parentElement.classList.add('correct');
-        }
-    });
-
-    document.getElementById('feedback').textContent = isAnyIncorrect ? 'Źle' : '';
-}
-
-
-    function nextQuestion() {
-        const selectedAnswers = document.querySelectorAll('input[name="answers"]:checked');
-
-        selectedAnswers.forEach(answer => {
-            const isCorrect = questions[currentQuestionIndex].answers.find(a => a.id === answer.value).correct;
-
-            if (isCorrect) {
-                answer.parentElement.classList.add('correct');
-            } else {
-                answer.parentElement.classList.add('incorrect');
-            }
-        });
-
-        currentQuestionIndex++;
-
-        if (currentQuestionIndex < questions.length) {
-            loadQuestion();
-        } else {
-            showResult();
-        }
-    }
-
-    function showResult() {
-        const resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = `<p>Quiz zakończony. Gratulacje!</p>`;
-    }
-
-    // Wczytaj pierwsze pytanie
-    loadQuestion();
-</script>
-
+<table cellspacing="0" border="0">
+	<colgroup span="6" width="95"></colgroup>
+	<colgroup width="28"></colgroup>
+	<colgroup span="7" width="95"></colgroup>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#FFFFFF"><b><font face="Barlow Condensed ExtraLight" size=3 color="#000000">L04, P03</font></b></td>
+		<td colspan=5 align="center" valign=middle bgcolor="#FFFFFF"><b><font size=4 color="#000000">Nieparzysty</font></b></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=4 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=4 color="#000000"><br></font></td>
+		<td colspan=5 align="center" valign=middle bgcolor="#FFFFFF"><b><font size=4 color="#000000">Parzysty</font></b></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="24" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">Poniedzia&#322;ek</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">Wtorek</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">&#346;roda</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">Czwartek</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">Pi&#261;tek</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">Poniedzia&#322;ek</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">Wtorek</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">&#346;roda</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">Czwartek</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">Pi&#261;tek</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">7:30-8:15</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td style="border-top: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font size=3 color="#404040">AutomCCh W</font></td>
+		<td style="border-top: 3px solid #000000; border-left: 3px solid #000000; border-right: 3px solid #000000" align="center" valign=middle bgcolor="#FFF2CC"><b><font size=3>PrZSPm3D L</font></b></td>
+		<td align="center" valign=middle><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">7:30-8:15</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td style="border-top: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font size=3 color="#404040">PrZSPm3D W</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">8:15-9:00</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-top: 3px solid #000000; border-left: 3px solid #000000; border-right: 3px solid #000000" align="center" valign=middle bgcolor="#FFF2CC"><b><font size=3>Tech.NET L</font></b></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font color="#404040"><br></font></td>
+		<td style="border-left: 3px solid #000000; border-right: 3px solid #000000" align="center" valign=middle bgcolor="#FFF2CC"><b><br></b></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">8:15-9:00</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font color="#404040"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">9:15-10:00</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td style="border-left: 3px solid #000000; border-right: 3px solid #000000" align="center" valign=middle bgcolor="#FFF2CC"><b><br></b></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><b><font size=3 color="#404040">A123</font></b></td>
+		<td style="border-bottom: 3px solid #000000; border-left: 3px solid #000000; border-right: 3px solid #000000" align="center" valign=middle bgcolor="#FFF2CC"><b><font size=3>C202</font></b></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">9:15-10:00</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><b><font size=3 color="#404040">A124</font></b></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">10:00-10:45</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 3px solid #000000; border-left: 3px solid #000000; border-right: 3px solid #000000" align="center" valign=middle bgcolor="#FFF2CC"><b><font size=3>K216</font></b></td>
+		<td style="border-top: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font size=3 color="#404040">OPIntRz W</font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">10:00-10:45</font></td>
+		<td style="border-top: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#FFF8E5"><font size=3 color="#595959">AutomCCh</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-top: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font size=3 color="#404040">OPIntRz W</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">11:00-11:45</font></td>
+		<td style="border-right: 2px dashed #595959" align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td style="border-top: 2px dashed #767171" align="center" valign=middle bgcolor="#FFE7FF"><font size=3 color="#595959">Semdypl S</font></td>
+		<td style="border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font color="#404040"><br></font></td>
+		<td style="border-top: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font size=3 color="#404040">ProgrSym W</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">11:00-11:45</font></td>
+		<td style="border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#FFF8E5"><font color="#595959">L04</font></td>
+		<td style="border-top: 2px dashed #767171" align="center" valign=middle bgcolor="#FFE7FF"><font size=3 color="#595959">Semdypl S</font></td>
+		<td style="border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font color="#404040"><br></font></td>
+		<td style="border-top: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font size=3 color="#404040">ProgrSym W</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"> </font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">11:45-12:30</font></td>
+		<td style="border-bottom: 3px solid #000000; border-right: 2px dashed #595959" align="center" valign=middle><font color="#000000"><br></font></td>
+		<td style="border-bottom: 2px dashed #767171" align="center" valign=middle bgcolor="#FFE7FF"><b><font size=3 color="#595959">A409</font></b></td>
+		<td style="border-bottom: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><b><font size=3 color="#404040">Zdalnie</font></b></td>
+		<td style="border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><b><font size=3 color="#404040">C04</font></b></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">11:45-12:30</font></td>
+		<td style="border-bottom: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#FFF8E5"><b><font size=3 color="#595959">B207</font></b></td>
+		<td style="border-bottom: 2px dashed #767171" align="center" valign=middle bgcolor="#FFE7FF"><b><font size=3 color="#595959">A409</font></b></td>
+		<td style="border-bottom: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><b><font size=3 color="#404040">Zdalnie</font></b></td>
+		<td style="border-bottom: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><b><font size=3 color="#404040">C04</font></b></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">12:45-13:30</font></td>
+		<td style="border-top: 3px solid #000000; border-left: 3px solid #000000; border-right: 3px solid #000000" align="center" valign=middle bgcolor="#FFF2CC"><b><font size=3>AutomCCh</font></b></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td style="border-top: 3px solid #000000; border-left: 3px solid #000000; border-right: 3px solid #000000" align="center" valign=middle bgcolor="#FBE5D6"><b><font size=3 color="#000000">ProgrSym P</font></b></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">12:45-13:30</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle><font size=3 color="#000000">13:30-14:15</font></td>
+		<td style="border-left: 3px solid #000000; border-right: 3px solid #000000" align="center" valign=middle bgcolor="#FFF2CC"><b>L03</b></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-left: 3px solid #000000; border-right: 3px solid #000000" align="center" valign=middle bgcolor="#FBE5D6"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">13:30-14:15</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">14:30-15:15</font></td>
+		<td style="border-bottom: 3px solid #000000; border-left: 3px solid #000000; border-right: 3px solid #000000" align="center" valign=middle bgcolor="#FFF2CC"><b><font size=3>B07</font></b></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 3px solid #000000; border-left: 3px solid #000000; border-right: 3px solid #000000" align="center" valign=middle bgcolor="#FBE5D6"><b><font size=3 color="#000000">B212</font></b></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">14:30-15:15</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle><font size=3 color="#000000">15:15-16:00</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">15:15-16:00</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">16:15-17:00</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">16:15-17:00</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">17:00-17:45</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">17:00-17:45</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">18:00-18:45</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">18:00-18:45</font></td>
+		<td style="border-top: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font size=3 color="#404040">PodPrawa W</font></td>
+		<td style="border-top: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font size=3 color="#404040">Tech.NET W</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">18:45-19:30</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">18:45-19:30</font></td>
+		<td style="border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font color="#404040"><br></font></td>
+		<td style="border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><font color="#404040"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">19:45-20:30</font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000">19:45-20:30</font></td>
+		<td style="border-bottom: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><b><font size=3 color="#404040">A123</font></b></td>
+		<td style="border-bottom: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" align="center" valign=middle bgcolor="#E2F0D9"><b><font size=3 color="#404040">G18</font></b></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#DAE3F3"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="32" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">20:30-21:15</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000">20:30-21:15</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td style="border-bottom: 1px solid #000000" height="20" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000" align="center" valign=middle bgcolor="#FFFFFF"><font size=3 color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="52" align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="left" valign=bottom bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 2px dashed #767171; border-bottom: 2px dashed #767171; border-left: 2px dashed #767171; border-right: 2px dashed #767171" height="20" align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="left" valign=middle bgcolor="#FFFFFF"><font color="#000000">nieobowi&#261;zkowe</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="22" align="center" valign=middle bgcolor="#E2F0D9"><font size=3 color="#000000">W</font></td>
+		<td style="border-left: 1px solid #000000" colspan=2 align="left" valign=middle bgcolor="#FFFFFF"><font color="#000000">wyk&#322;ad</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 3px solid #ff0000; border-bottom: 3px solid #ff0000; border-left: 3px solid #ff0000; border-right: 3px solid #ff0000" height="22" align="center" valign=middle bgcolor="#E2F0D9"><font size=3 color="#000000">W</font></td>
+		<td style="border-left: 3px solid #ff0000" colspan=2 align="left" valign=middle><font color="#000000">wyk&#322;ad obowi&#261;zkowy</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="22" align="center" valign=middle bgcolor="#FFF2CC"><font size=3 color="#000000">L</font></td>
+		<td style="border-left: 1px solid #000000" align="left" valign=middle bgcolor="#FFFFFF"><font color="#000000">laby</font></td>
+		<td align="left" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="21" align="center" valign=middle bgcolor="#FBE5D6"><font size=3 color="#000000">P</font></td>
+		<td style="border-left: 1px solid #000000" colspan=2 align="left" valign=middle bgcolor="#FFFFFF"><font color="#000000">projekty</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="21" align="center" valign=middle bgcolor="#F2F2F2"><font size=3 color="#000000">K</font></td>
+		<td style="border-left: 1px solid #000000" colspan=2 align="left" valign=middle bgcolor="#FFFFFF"><font color="#000000">komputerowe</font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#FFFFFF"><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="21" align="center" valign=middle bgcolor="#FFD1F1"><font size=3 color="#000000">S</font></td>
+		<td style="border-left: 1px solid #000000" colspan=2 align="left" valign=middle bgcolor="#FFFFFF"><font color="#000000">seminaria</font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="21" align="center" valign=middle bgcolor="#99CCFF"><font size=3 color="#000000">&#262;</font></td>
+		<td style="border-left: 1px solid #000000" colspan=2 align="left" valign=middle><font color="#000000">&#263;wiczenia</font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+		<td align="center" valign=middle><font color="#000000"><br></font></td>
+	</tr>
+</table>
+<!-- ************************************************************************** -->
 </body>
+
 </html>
